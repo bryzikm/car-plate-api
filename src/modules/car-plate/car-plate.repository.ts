@@ -68,10 +68,12 @@ export class CarPlateRepository {
   }
 
   findAllByText(searchText: string) {
+    searchText = searchText.toLowerCase();
+
     return this.CAR_PLATES.filter(carPlate =>
-      carPlate.firstName.includes(searchText) ||
-      carPlate.lastName.includes(searchText) ||
-      carPlate.carPlateNumber.includes(searchText));
+      carPlate.firstName.toLowerCase().includes(searchText) ||
+      carPlate.lastName.toLowerCase().includes(searchText) ||
+      carPlate.carPlateNumber.toLowerCase().includes(searchText));
   }
 
   updateOne(carPlate: CarPlateModel): boolean {

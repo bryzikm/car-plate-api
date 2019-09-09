@@ -31,7 +31,6 @@ export class CarPlateController {
   @Put()
   updateCarPlate(@Res() res: Response,
                  @Body('carPlate') carPlate: CarPlateModel) {
-    console.log(carPlate)
     const updateStatus = this.carPlateService.updateOne(carPlate);
 
     return updateStatus ? res.status(HttpStatus.OK).send()

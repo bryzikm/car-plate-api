@@ -20,7 +20,8 @@ export class CarPlateService {
       const endIndex = startIndex + limit;
 
       return {
-        carPlates: carPlates.slice(startIndex, endIndex),
+        carPlates: carPlates.slice(startIndex, endIndex)
+          .sort(this.sortByFirstNameAndLastName),
         totalPages,
         totalElements: carPlates.length,
       };
@@ -58,7 +59,6 @@ export class CarPlateService {
   }
 
   private isCarPlateNumberInDatabase(carPlateNumber: string): boolean {
-    console.log(carPlateNumber, !!this.carPlateRepository.findOneByCarPlateNumber(carPlateNumber));
     return !!this.carPlateRepository.findOneByCarPlateNumber(carPlateNumber);
   }
 
@@ -86,5 +86,12 @@ export class CarPlateService {
     }
 
     return param;
+  }
+
+  private sortByFirstNameAndLastName(a, b) {
+    const aNames = `${a.firstName} ${a.lastName}`.toLowerCase();
+    const bNames = `${b.firstName} ${b.lastName}`.toLowerCase();
+
+    return aNames.localeCompare(bNames);
   }
 }
